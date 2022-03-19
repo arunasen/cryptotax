@@ -140,13 +140,6 @@ BEGIN
 	Realized_Amount_For_Base_Asset_In_USD_Value-Realized_Amount_For_Fee_Asset_In_USD_Value, 0.0
 	from binancetransactions
 	where Quote_Asset not in ('USD', 'USDT', 'BUSD', 'USDC') AND Operation = 'Sell';
-
-	#binance to binance transfer: 0.08 BTC out, BUSD in three transactions, take average
-	insert into transactions (exchange, transaction_type, asset_amount, asset, date, usd_amount, basis_used)
-	select 'binance', 'sell', 0.08/3, 'BTC', date, asset_amount, 0.0 
-	from transactions
-	where asset = 'BUSD'
-	and transaction_type = 'deposit';
     
 	#blockfi buys (no sells for 2021)
 	insert into transactions (exchange, transaction_type, asset_amount, asset, date, usd_amount, basis_used)
